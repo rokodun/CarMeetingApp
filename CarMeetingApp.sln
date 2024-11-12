@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35327.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarMeeting.Web", "CarMeeting.Web\CarMeeting.Web.csproj", "{88CB7D68-7135-4F80-85C0-9F8ED67230A7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{88CB7D68-7135-4F80-85C0-9F8ED67230A7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88CB7D68-7135-4F80-85C0-9F8ED67230A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88CB7D68-7135-4F80-85C0-9F8ED67230A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88CB7D68-7135-4F80-85C0-9F8ED67230A7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C5EEDF0-B5F4-43E9-91C6-9B10A13C945F}
+	EndGlobalSection
+EndGlobal
