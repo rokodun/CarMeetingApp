@@ -3,7 +3,19 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarMeeting.Web", "CarMeeting.Web\CarMeeting.Web.csproj", "{88CB7D68-7135-4F80-85C0-9F8ED67230A7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarMeeting.Web", "CarMeeting.Web\CarMeeting.Web.csproj", "{88CB7D68-7135-4F80-85C0-9F8ED67230A7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarMeeting.Web.ViewModels", "CarMeeting.Web.ViewModels\CarMeeting.Web.ViewModels.csproj", "{50D16B16-38AE-483F-BD8F-4D46CFFEB799}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarMeeting.Common", "CarMeeting.Common\CarMeeting.Common.csproj", "{4CBFBC7F-D4E3-42BB-BA62-137271A3CF2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarMeeting.Data.Models", "CarMeetinig.Data.Models\CarMeeting.Data.Models.csproj", "{4B0B9CCD-1DC6-4FE4-B2CA-DE67F0187FA2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{0FC9CF73-78FB-41A6-B2EF-5F666C991863}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{88964DB6-B5ED-4519-B605-050A69B4C3D3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarMeeting.Data", "CarMeeting.Data\CarMeeting.Data.csproj", "{683796A2-4DF4-498B-A3F9-698966472DA0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +27,31 @@ Global
 		{88CB7D68-7135-4F80-85C0-9F8ED67230A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{88CB7D68-7135-4F80-85C0-9F8ED67230A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{88CB7D68-7135-4F80-85C0-9F8ED67230A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{50D16B16-38AE-483F-BD8F-4D46CFFEB799}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{50D16B16-38AE-483F-BD8F-4D46CFFEB799}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{50D16B16-38AE-483F-BD8F-4D46CFFEB799}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{50D16B16-38AE-483F-BD8F-4D46CFFEB799}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4CBFBC7F-D4E3-42BB-BA62-137271A3CF2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4CBFBC7F-D4E3-42BB-BA62-137271A3CF2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4CBFBC7F-D4E3-42BB-BA62-137271A3CF2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4CBFBC7F-D4E3-42BB-BA62-137271A3CF2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4B0B9CCD-1DC6-4FE4-B2CA-DE67F0187FA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4B0B9CCD-1DC6-4FE4-B2CA-DE67F0187FA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4B0B9CCD-1DC6-4FE4-B2CA-DE67F0187FA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4B0B9CCD-1DC6-4FE4-B2CA-DE67F0187FA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{683796A2-4DF4-498B-A3F9-698966472DA0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{683796A2-4DF4-498B-A3F9-698966472DA0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{683796A2-4DF4-498B-A3F9-698966472DA0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{683796A2-4DF4-498B-A3F9-698966472DA0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{88CB7D68-7135-4F80-85C0-9F8ED67230A7} = {0FC9CF73-78FB-41A6-B2EF-5F666C991863}
+		{50D16B16-38AE-483F-BD8F-4D46CFFEB799} = {0FC9CF73-78FB-41A6-B2EF-5F666C991863}
+		{4B0B9CCD-1DC6-4FE4-B2CA-DE67F0187FA2} = {88964DB6-B5ED-4519-B605-050A69B4C3D3}
+		{683796A2-4DF4-498B-A3F9-698966472DA0} = {88964DB6-B5ED-4519-B605-050A69B4C3D3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1C5EEDF0-B5F4-43E9-91C6-9B10A13C945F}

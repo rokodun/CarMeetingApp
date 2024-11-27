@@ -1,4 +1,4 @@
-namespace CarMeeting.Web.Models
+namespace CarMeeting.Web.ViewModels
 {
     public class ErrorViewModel
     {
