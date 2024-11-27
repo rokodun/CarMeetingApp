@@ -1,27 +1,29 @@
-﻿using CarMeetinig.Data.Models;
+﻿using CarMeeting.Data.Models;
+using CarMeetinig.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CarMeeting.Data
 {
-    public class CarMeetingDbContext : DbContext
+    public class CarMeetingDbContext : IdentityDbContext
     {
         public CarMeetingDbContext()
         {
             
         }
 
-        public CarMeetingDbContext(DbContextOptions options)
+        public CarMeetingDbContext(DbContextOptions<CarMeetingDbContext> options)
             : base(options)
         {
             
         }
 
         public virtual DbSet<Event> Events { get; set; } = null!;
+        public DbSet<Participant> Participants { get; set; }
+        public DbSet<Car> Cars { get; set; }
+        public DbSet<CarCategory> CarCategories { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
+        public DbSet<Judging> Judgings { get; set; }
 
     }
 }

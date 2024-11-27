@@ -27,6 +27,8 @@ namespace CarMeeting.Data.Configuration
             builder.HasData(SeedEvents());
         }
 
+
+
         private List<Event> SeedEvents()
         {
             List<Event> events = new List<Event>()
