@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace CarMeeting.Data.Migrations
 {
     /// <inheritdoc />
@@ -54,8 +56,7 @@ namespace CarMeeting.Data.Migrations
                 name: "CarCategories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
@@ -69,10 +70,10 @@ namespace CarMeeting.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
                     Date = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Location = table.Column<string>(type: "nvarchar(70)", maxLength: 70, nullable: false),
+                    Description = table.Column<string>(type: "nvarchar(300)", maxLength: 300, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -83,8 +84,7 @@ namespace CarMeeting.Data.Migrations
                 name: "Participants",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -206,43 +206,42 @@ namespace CarMeeting.Data.Migrations
                 name: "Cars",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     ParticipantId = table.Column<int>(type: "int", nullable: false),
                     Make = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CarCategoryId = table.Column<int>(type: "int", nullable: false)
+                    CarCategoryId = table.Column<int>(type: "int", nullable: false),
+                    ParticipantId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CarCategoryId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cars", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cars_CarCategories_CarCategoryId",
-                        column: x => x.CarCategoryId,
+                        name: "FK_Cars_CarCategories_CarCategoryId1",
+                        column: x => x.CarCategoryId1,
                         principalTable: "CarCategories",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Cars_Participants_ParticipantId",
-                        column: x => x.ParticipantId,
+                        name: "FK_Cars_Participants_ParticipantId1",
+                        column: x => x.ParticipantId1,
                         principalTable: "Participants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Registrations",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
                     ParticipantId = table.Column<int>(type: "int", nullable: false),
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EventId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    EventId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    ParticipantId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -253,38 +252,45 @@ namespace CarMeeting.Data.Migrations
                         principalTable: "Events",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_Registrations_Participants_ParticipantId",
-                        column: x => x.ParticipantId,
+                        name: "FK_Registrations_Participants_ParticipantId1",
+                        column: x => x.ParticipantId1,
                         principalTable: "Participants",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
                 name: "Judgings",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     EventId = table.Column<int>(type: "int", nullable: false),
                     CarId = table.Column<int>(type: "int", nullable: false),
                     Score = table.Column<int>(type: "int", nullable: false),
-                    EventId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    EventId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
+                    CarId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Judgings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Judgings_Cars_CarId",
-                        column: x => x.CarId,
+                        name: "FK_Judgings_Cars_CarId1",
+                        column: x => x.CarId1,
                         principalTable: "Cars",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                     table.ForeignKey(
                         name: "FK_Judgings_Events_EventId1",
                         column: x => x.EventId1,
                         principalTable: "Events",
                         principalColumn: "Id");
+                });
+
+            migrationBuilder.InsertData(
+                table: "Events",
+                columns: new[] { "Id", "Date", "Description", "Location", "Name" },
+                values: new object[,]
+                {
+                    { new Guid("a36dafd8-ba4c-4794-b8b0-6bae0625ba33"), new DateTime(2025, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Honda Fest is intended to bring together Honda fans and enthusiasts with their cars to enjoy plesant moments and emotions with their favourite car brand.", "Kaloyanovo", "Honda Fest 2025" },
+                    { new Guid("efc0d248-e6f8-47aa-b1a7-ed5ddca3b183"), new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "BMW Fest is intended to bring together BMW fans and enthusiasts with their cars to enjoy plesant moments and emotions with their favourite car brand.", "Plovdiv", "BMW Fest 2025" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -327,19 +333,19 @@ namespace CarMeeting.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cars_CarCategoryId",
+                name: "IX_Cars_CarCategoryId1",
                 table: "Cars",
-                column: "CarCategoryId");
+                column: "CarCategoryId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cars_ParticipantId",
+                name: "IX_Cars_ParticipantId1",
                 table: "Cars",
-                column: "ParticipantId");
+                column: "ParticipantId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Judgings_CarId",
+                name: "IX_Judgings_CarId1",
                 table: "Judgings",
-                column: "CarId");
+                column: "CarId1");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Judgings_EventId1",
@@ -352,9 +358,9 @@ namespace CarMeeting.Data.Migrations
                 column: "EventId1");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Registrations_ParticipantId",
+                name: "IX_Registrations_ParticipantId1",
                 table: "Registrations",
-                column: "ParticipantId");
+                column: "ParticipantId1");
         }
 
         /// <inheritdoc />

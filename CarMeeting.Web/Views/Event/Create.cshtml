@@ -1,0 +1,30 @@
+﻿@using CarMeetinig.Data.Models
+@model Event
+
+<h2>Add a New Event</h2>
+
+<form asp-action="Create" method="post">
+    <div>
+        <label asp-for="Name">Event Name</label>
+        <input asp-for="Name" class="form-control" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Date">Event Date</label>
+        <input asp-for="Date" class="form-control" />
+        <span asp-validation-for="Date" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Location">Location</label>
+        <input asp-for="Location" class="form-control" />
+        <span asp-validation-for="Location" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Description">Description</label>
+        <textarea asp-for="Description" class="form-control"></textarea>
+        <span asp-validation-for="Description" class="text-danger"></span>
+    </div>
+    <button type="submit" class="btn btn-primary mt-2">Create Event</button>
+</form>
+
+<a asp-action="Index">Back to Events List</a>

@@ -1,4 +1,5 @@
-﻿using CarMeeting.Data.Models;
+﻿using CarMeeting.Data.Configuration;
+using CarMeeting.Data.Models;
 using CarMeetinig.Data.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -25,5 +26,11 @@ namespace CarMeeting.Data
         public DbSet<Registration> Registrations { get; set; }
         public DbSet<Judging> Judgings { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.ApplyConfiguration(new EventConfiguration());
+        }
     }
 }

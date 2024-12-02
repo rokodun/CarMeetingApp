@@ -1,7 +1,6 @@
 ﻿using CarMeetinig.Data.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Reflection.Emit;
 using static CarMeeting.Common.EntityValidationConstants.Event;
 
 namespace CarMeeting.Data.Configuration
@@ -24,14 +23,15 @@ namespace CarMeeting.Data.Configuration
                .IsRequired()
                .HasMaxLength(DescriptionMaxLength);
 
-            builder.HasData(SeedEvents());
+            builder.HasData(this.SeedEvents());
         }
 
 
 
         private List<Event> SeedEvents()
         {
-            List<Event> events = new List<Event>()
+            return new List<Event>()
+
             {
                 new Event()
                 {
@@ -48,8 +48,6 @@ namespace CarMeeting.Data.Configuration
                     Description = "BMW Fest is intended to bring together BMW fans and enthusiasts with their cars to enjoy plesant moments and emotions with their favourite car brand."
                 }
             };
-
-            return events;
         }
     }
 }

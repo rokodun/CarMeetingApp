@@ -4,7 +4,7 @@ namespace CarMeetinig.Data.Models
 {
     public class Judging
     {
-        public int Id { get; set; }
+        public Guid Id { get; set; } = Guid.NewGuid();
         public int EventId { get; set; }
         public int CarId { get; set; }
         public int Score { get; set; }

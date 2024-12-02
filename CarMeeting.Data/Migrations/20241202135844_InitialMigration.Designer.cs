@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarMeeting.Data.Migrations
 {
     [DbContext(typeof(CarMeetingDbContext))]
-    [Migration("20241127101121_InitialMigration")]
+    [Migration("20241202135844_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -27,14 +27,15 @@ namespace CarMeeting.Data.Migrations
 
             modelBuilder.Entity("CarMeeting.Data.Models.Car", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("CarCategoryId")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("CarCategoryId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Color")
                         .IsRequired()
@@ -51,25 +52,26 @@ namespace CarMeeting.Data.Migrations
                     b.Property<int>("ParticipantId")
                         .HasColumnType("int");
 
+                    b.Property<Guid?>("ParticipantId1")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<int>("Year")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarCategoryId");
+                    b.HasIndex("CarCategoryId1");
 
-                    b.HasIndex("ParticipantId");
+                    b.HasIndex("ParticipantId1");
 
                     b.ToTable("Cars");
                 });
 
             modelBuilder.Entity("CarMeeting.Data.Models.CarCategory", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Description")
                         .IsRequired()
@@ -86,11 +88,9 @@ namespace CarMeeting.Data.Migrations
 
             modelBuilder.Entity("CarMeeting.Data.Models.Participant", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -128,31 +128,53 @@ namespace CarMeeting.Data.Migrations
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(300)
+                        .HasColumnType("nvarchar(300)");
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(70)
+                        .HasColumnType("nvarchar(70)");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
 
                     b.HasKey("Id");
 
                     b.ToTable("Events");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("a36dafd8-ba4c-4794-b8b0-6bae0625ba33"),
+                            Date = new DateTime(2025, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "Honda Fest is intended to bring together Honda fans and enthusiasts with their cars to enjoy plesant moments and emotions with their favourite car brand.",
+                            Location = "Kaloyanovo",
+                            Name = "Honda Fest 2025"
+                        },
+                        new
+                        {
+                            Id = new Guid("efc0d248-e6f8-47aa-b1a7-ed5ddca3b183"),
+                            Date = new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "BMW Fest is intended to bring together BMW fans and enthusiasts with their cars to enjoy plesant moments and emotions with their favourite car brand.",
+                            Location = "Plovdiv",
+                            Name = "BMW Fest 2025"
+                        });
                 });
 
             modelBuilder.Entity("CarMeetinig.Data.Models.Judging", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("CarId")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("CarId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
@@ -165,7 +187,7 @@ namespace CarMeeting.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CarId");
+                    b.HasIndex("CarId1");
 
                     b.HasIndex("EventId1");
 
@@ -174,11 +196,9 @@ namespace CarMeeting.Data.Migrations
 
             modelBuilder.Entity("CarMeetinig.Data.Models.Registration", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<int>("EventId")
                         .HasColumnType("int");
@@ -188,6 +208,9 @@ namespace CarMeeting.Data.Migrations
 
                     b.Property<int>("ParticipantId")
                         .HasColumnType("int");
+
+                    b.Property<Guid?>("ParticipantId1")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("RegistrationDate")
                         .HasColumnType("datetime2");
@@ -200,7 +223,7 @@ namespace CarMeeting.Data.Migrations
 
                     b.HasIndex("EventId1");
 
-                    b.HasIndex("ParticipantId");
+                    b.HasIndex("ParticipantId1");
 
                     b.ToTable("Registrations");
                 });
@@ -411,15 +434,11 @@ namespace CarMeeting.Data.Migrations
                 {
                     b.HasOne("CarMeeting.Data.Models.CarCategory", "CarCategory")
                         .WithMany("Cars")
-                        .HasForeignKey("CarCategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CarCategoryId1");
 
                     b.HasOne("CarMeeting.Data.Models.Participant", "Participant")
                         .WithMany("Cars")
-                        .HasForeignKey("ParticipantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParticipantId1");
 
                     b.Navigation("CarCategory");
 
@@ -430,9 +449,7 @@ namespace CarMeeting.Data.Migrations
                 {
                     b.HasOne("CarMeeting.Data.Models.Car", "Car")
                         .WithMany("Judgings")
-                        .HasForeignKey("CarId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("CarId1");
 
                     b.HasOne("CarMeetinig.Data.Models.Event", "Event")
                         .WithMany("Judgings")
@@ -451,9 +468,7 @@ namespace CarMeeting.Data.Migrations
 
                     b.HasOne("CarMeeting.Data.Models.Participant", "Participant")
                         .WithMany("Registrations")
-                        .HasForeignKey("ParticipantId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("ParticipantId1");
 
                     b.Navigation("Event");
 
