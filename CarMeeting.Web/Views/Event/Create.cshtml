@@ -1,5 +1,5 @@
-﻿@using CarMeetinig.Data.Models
-@model Event
+﻿@using CarMeeting.Web.ViewModels.Event
+@model AddEventInputModel
 
 <h2>Add a New Event</h2>
 
@@ -11,7 +11,7 @@
     </div>
     <div>
         <label asp-for="Date">Event Date</label>
-        <input asp-for="Date" class="form-control" />
+        <input asp-for="Date" type="date" class="form-control" />
         <span asp-validation-for="Date" class="text-danger"></span>
     </div>
     <div>
