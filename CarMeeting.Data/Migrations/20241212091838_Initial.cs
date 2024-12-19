@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace CarMeeting.Data.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialMigration : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -207,28 +207,28 @@ namespace CarMeeting.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    ParticipantId = table.Column<int>(type: "int", nullable: false),
+                    ParticipantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     Make = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Model = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Year = table.Column<int>(type: "int", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CarCategoryId = table.Column<int>(type: "int", nullable: false),
-                    ParticipantId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CarCategoryId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    CarCategoryId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Cars", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Cars_CarCategories_CarCategoryId1",
-                        column: x => x.CarCategoryId1,
+                        name: "FK_Cars_CarCategories_CarCategoryId",
+                        column: x => x.CarCategoryId,
                         principalTable: "CarCategories",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Cars_Participants_ParticipantId1",
-                        column: x => x.ParticipantId1,
+                        name: "FK_Cars_Participants_ParticipantId",
+                        column: x => x.ParticipantId,
                         principalTable: "Participants",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -236,26 +236,26 @@ namespace CarMeeting.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false),
-                    ParticipantId = table.Column<int>(type: "int", nullable: false),
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    ParticipantId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     RegistrationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EventId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    ParticipantId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Registrations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Registrations_Events_EventId1",
-                        column: x => x.EventId1,
+                        name: "FK_Registrations_Events_EventId",
+                        column: x => x.EventId,
                         principalTable: "Events",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Registrations_Participants_ParticipantId1",
-                        column: x => x.ParticipantId1,
+                        name: "FK_Registrations_Participants_ParticipantId",
+                        column: x => x.ParticipantId,
                         principalTable: "Participants",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -263,25 +263,25 @@ namespace CarMeeting.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    EventId = table.Column<int>(type: "int", nullable: false),
-                    CarId = table.Column<int>(type: "int", nullable: false),
-                    Score = table.Column<int>(type: "int", nullable: false),
-                    EventId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true),
-                    CarId1 = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    CarId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Score = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Judgings", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Judgings_Cars_CarId1",
-                        column: x => x.CarId1,
+                        name: "FK_Judgings_Cars_CarId",
+                        column: x => x.CarId,
                         principalTable: "Cars",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Judgings_Events_EventId1",
-                        column: x => x.EventId1,
+                        name: "FK_Judgings_Events_EventId",
+                        column: x => x.EventId,
                         principalTable: "Events",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
@@ -289,8 +289,8 @@ namespace CarMeeting.Data.Migrations
                 columns: new[] { "Id", "Date", "Description", "Location", "Name" },
                 values: new object[,]
                 {
-                    { new Guid("a36dafd8-ba4c-4794-b8b0-6bae0625ba33"), new DateTime(2025, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Honda Fest is intended to bring together Honda fans and enthusiasts with their cars to enjoy plesant moments and emotions with their favourite car brand.", "Kaloyanovo", "Honda Fest 2025" },
-                    { new Guid("efc0d248-e6f8-47aa-b1a7-ed5ddca3b183"), new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "BMW Fest is intended to bring together BMW fans and enthusiasts with their cars to enjoy plesant moments and emotions with their favourite car brand.", "Plovdiv", "BMW Fest 2025" }
+                    { new Guid("514ea5a5-4f25-43d9-ad21-1214be697537"), new DateTime(2025, 9, 12, 0, 0, 0, 0, DateTimeKind.Unspecified), "Honda Fest is intended to bring together Honda fans and enthusiasts with their cars to enjoy plesant moments and emotions with their favourite car brand.", "Kaloyanovo", "Honda Fest 2025" },
+                    { new Guid("837a7158-236e-4902-a2ae-3ab58d92a60a"), new DateTime(2025, 7, 15, 0, 0, 0, 0, DateTimeKind.Unspecified), "BMW Fest is intended to bring together BMW fans and enthusiasts with their cars to enjoy plesant moments and emotions with their favourite car brand.", "Plovdiv", "BMW Fest 2025" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -333,34 +333,34 @@ namespace CarMeeting.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cars_CarCategoryId1",
+                name: "IX_Cars_CarCategoryId",
                 table: "Cars",
-                column: "CarCategoryId1");
+                column: "CarCategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Cars_ParticipantId1",
+                name: "IX_Cars_ParticipantId",
                 table: "Cars",
-                column: "ParticipantId1");
+                column: "ParticipantId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Judgings_CarId1",
+                name: "IX_Judgings_CarId",
                 table: "Judgings",
-                column: "CarId1");
+                column: "CarId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Judgings_EventId1",
+                name: "IX_Judgings_EventId",
                 table: "Judgings",
-                column: "EventId1");
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Registrations_EventId1",
+                name: "IX_Registrations_EventId",
                 table: "Registrations",
-                column: "EventId1");
+                column: "EventId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Registrations_ParticipantId1",
+                name: "IX_Registrations_ParticipantId",
                 table: "Registrations",
-                column: "ParticipantId1");
+                column: "ParticipantId");
         }
 
         /// <inheritdoc />

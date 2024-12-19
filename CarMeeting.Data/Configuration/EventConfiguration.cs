@@ -9,20 +9,6 @@ namespace CarMeeting.Data.Configuration
     {
         public void Configure(EntityTypeBuilder<Event> builder)
         {
-                builder.HasKey(e => e.Id);
-
-                builder.Property(e => e.Name)
-                .IsRequired()
-                .HasMaxLength(NameMaxLength);
-
-                builder.Property(e => e.Location)
-                .IsRequired()
-                .HasMaxLength(LocationMaxLength);
-
-            builder.Property(e => e.Description)
-               .IsRequired()
-               .HasMaxLength(DescriptionMaxLength);
-
             builder.HasData(this.SeedEvents());
         }
 
@@ -31,7 +17,6 @@ namespace CarMeeting.Data.Configuration
         private List<Event> SeedEvents()
         {
             return new List<Event>()
-
             {
                 new Event()
                 {

@@ -3,6 +3,7 @@ using CarMeeting.Web.ViewModels.Event;
 using CarMeetinig.Data.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using static CarMeeting.Common.EntityValidationConstants.Event;
 
 namespace CarMeeting.Web.Controllers
 {
@@ -18,7 +19,7 @@ namespace CarMeeting.Web.Controllers
         {
             IEnumerable<Event> events = this.dbContext
                 .Events
-                .ToList();
+                .ToArray();
 
             return View(events);
         }
@@ -32,17 +33,16 @@ namespace CarMeeting.Web.Controllers
         [HttpPost]
         public IActionResult Create(AddEventInputModel inputModel)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(inputModel);
-            }
-
             bool isDateValid = DateTime.
-                TryParseExact(inputModel.Date, "dd/MM/yyyy", CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime eventDate);
+                TryParseExact(inputModel.Date, EventDateFormat, CultureInfo.InvariantCulture, DateTimeStyles.None, out DateTime eventDate);
 
             if (!isDateValid)
             {
                 ModelState.AddModelError(nameof(inputModel.Date), "Date must be in the following format: dd/MM/yyyy");
+            }
+
+            if (!ModelState.IsValid)
+            {
                 return View(inputModel);
             }
 
@@ -55,7 +55,9 @@ namespace CarMeeting.Web.Controllers
             };
             dbContext.Events.Add(@event);
             dbContext.SaveChanges();
-            
+
+            TempData["SuccessMessage"] = "Event has been successfully created!";
+
             return RedirectToAction(nameof(Index));
         }
 

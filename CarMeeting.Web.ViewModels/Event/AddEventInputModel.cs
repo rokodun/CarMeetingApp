@@ -5,13 +5,14 @@ namespace CarMeeting.Web.ViewModels.Event
     using static Common.EntityValidationConstants.Event;
     public class AddEventInputModel
     {
+
         [Required]
         [MinLength(NameMinLength)]
         [MaxLength(NameMaxLength)]
         public string Name { get; set; } = null!;
 
         [Required]
-        public string Date { get; set; } = null!;
+        public string Date { get; set; } = DateTime.Now.ToString(EventDateFormat);
 
         [Required]
         [MinLength(LocationMinLength)]

@@ -1,22 +1,34 @@
 ﻿using CarMeetinig.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarMeeting.Data.Models
 {
     public class Car
     {
+        [Key]
         public Guid Id { get; set; } = Guid.NewGuid();
-        public int ParticipantId { get; set; }
+
+        [Required]
+        public Guid ParticipantId { get; set; }
+
+        [Required]
         public string Make { get; set; } = null!;
+
+        [Required]
         public string Model { get; set; } = null!;
+
+        [Required]
         public int Year { get; set; }
+
+        [Required]
         public string Color { get; set; } = null!;
-        public int CarCategoryId { get; set; }
+        public Guid CarCategoryId { get; set; }
+
+        [ForeignKey(nameof(ParticipantId))]
         public Participant? Participant { get; set; }
+
+        [ForeignKey(nameof(CarCategoryId))]
         public CarCategory? CarCategory { get; set; }
         public ICollection<Judging> Judgings { get; set; } 
             = new List<Judging>();
